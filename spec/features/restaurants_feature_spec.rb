@@ -15,7 +15,7 @@ feature 'restaurants' do
       Restaurant.create(name: 'KFC')
     end
     scenario 'display restaurants' do
-      visit '/restuarants'
+      visit '/restaurants'
       expect(page).to have_content('KFC')
       expect(page).not_to have_content('No restaurants yet')
     end
