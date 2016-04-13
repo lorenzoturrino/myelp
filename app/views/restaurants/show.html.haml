@@ -1,2 +1,7 @@
 = @restaurant.name
 = @restaurant.description
+
+%h2 Users reviews:
+-@restaurant.reviews.each do |review|
+  = "Review: #{review.thoughts}"
+  = "Rating: #{review.rating}"
