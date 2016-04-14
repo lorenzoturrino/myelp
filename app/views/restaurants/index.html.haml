@@ -3,8 +3,9 @@
 - else
   - @restaurants.each do |rest|
     =link_to rest.name, restaurant_path(rest)
-    =link_to "Edit #{rest.name}", edit_restaurant_path(rest)
-    =link_to "Delete #{rest.name}", restaurant_path(rest), method: :delete
+    - if user_signed_in? && current_user.id == rest.user_id
+      =link_to "Edit #{rest.name}", edit_restaurant_path(rest)
+      =link_to "Delete #{rest.name}", restaurant_path(rest), method: :delete
     - rest.reviews.each do |review|
       = review.thoughts
       = review.rating

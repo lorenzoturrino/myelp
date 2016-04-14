@@ -60,13 +60,11 @@ feature 'restaurants' do
   end
 
   context 'editing restaurants' do
-    let!(:kfc) { Restaurant.create(name:'KFC') }
+    let!(:user) { User.create(email: 'lo@renzo.com', password: 'lolsrenzo') }
+    let!(:kfc) { Restaurant.create(name: 'KFC', user_id: user.id) }
 
-    before :each do
-      helper_signup
-    end
-
-    scenario 'let a user edit a restaurant' do
+    scenario 'lets a user edit a restaurant they created' do
+      helper_signin
       visit '/restaurants'
       click_link 'Edit KFC'
       fill_in 'Name', with: 'Kentucky Fried Chicken'
@@ -74,23 +72,33 @@ feature 'restaurants' do
       expect(page).to have_content 'Kentucky Fried Chicken'
       expect(current_path).to eq '/restaurants'
     end
-    
+
+    scenario 'prevents a user from editing restaurants they did not create' do
+      User.create(email: 'other@user.com', password: 'otheruser')
+      helper_signin(email: 'other@user.com', password: 'otheruser')
+      visit '/restaurants'
+      expect(page).not_to have_link 'Edit KFC'
+    end
   end
 
   context 'deleting restaurants' do
-    let!(:kfc) { Restaurant.create(name:'KFC') }
+    let!(:user) { User.create(email: 'lo@renzo.com', password: 'lolsrenzo') }
+    let!(:kfc) { Restaurant.create(name: 'KFC', user_id: user.id) }
 
-    before :each do
-      helper_signup
-    end
-
-    scenario 'removes a restaurant when a user clicks a delete link' do
+    scenario 'lets a user remove a restaurant they created' do
+      helper_signin
       visit '/restaurants'
       click_link 'Delete KFC'
       expect(page).not_to have_content 'KFC'
       expect(page).to have_content 'Restaurant deleted successfully'
     end
 
+    scenario 'prevents a user from removing restaurants they did not create' do
+      User.create(email: 'other@user.com', password: 'otheruser')
+      helper_signin(email: 'other@user.com', password: 'otheruser')
+      visit '/restaurants'
+      expect(page).not_to have_link 'Delete KFC'
+    end
   end
 
 end
