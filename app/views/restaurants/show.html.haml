@@ -1,6 +1,6 @@
 = @restaurant.name
 = @restaurant.description
-%h3 Average rating: #{@restaurant.average_rating.to_i}
+%h3 Average rating: #{@restaurant.average_rating}
 %h2 Users reviews:
 - @restaurant.reviews.each do |review|
   = "Review: #{review.thoughts}"

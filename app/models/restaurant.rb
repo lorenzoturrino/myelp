@@ -6,7 +6,12 @@ class Restaurant < ActiveRecord::Base
 
   def average_rating
     return 'N/A' if reviews.none?
-    reviews.average(:rating)
+    return case reviews.average(:rating).to_i
+      when 1 then "★☆☆☆☆"
+      when 2 then "★★☆☆☆"
+      when 3 then "★★★☆☆"
+      when 4 then "★★★★☆"
+      when 5 then "★★★★★"
+    end
   end
-
 end

@@ -39,8 +39,7 @@ feature 'reviewing' do
     scenario "restaurant rating should display the average from all reviews" do
       review2 = Review.create(thoughts: "out of this world", rating: 5, user_id: other_user.id, restaurant_id: kfc.id)
       visit restaurant_path(kfc.id)
-      expect(page).to have_content("Average rating: 4")
-
+      expect(page).to have_content "Average rating: ★★★★☆"
     end
 
   end
