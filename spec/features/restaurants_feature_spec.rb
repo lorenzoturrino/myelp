@@ -1,7 +1,14 @@
 require 'rails_helper'
 
 feature 'restaurants' do
-
+  before do
+    visit('/')
+    click_link('Sign up')
+    fill_in('Email', with: 'test@example.com')
+    fill_in('Password', with: 'testtest')
+    fill_in('Password confirmation', with: 'testtest')
+    click_button('Sign up')
+  end
   context 'no restaurants have been added' do
     scenario 'should display a prompt to add a restaurant' do
       visit '/restaurants'
@@ -31,8 +38,19 @@ feature 'restaurants' do
       expect(current_path).to eq '/restaurants'
     end
 
+    context 'user is not signed in' do
+      scenario 'user cannot create restaurant when not signed in' do
+        click_link 'Sign out'
+        visit '/restaurants'
+        click_link 'Add a restaurant'
+        expect(page).to have_content 'You need to sign in or sign up before continuing.'
+        expect(page).not_to have_content 'Create Restaurant'
+      end
+    end
+
+
     context 'an invalid restaurant' do
-      it 'does not let you submit a name that is too short' do
+      scenario 'does not let you submit a name that is too short' do
         visit '/restaurants'
         click_link 'Add a restaurant'
         fill_in 'Name', with: 'kf'
@@ -53,7 +71,6 @@ feature 'restaurants' do
      expect(page).to have_content 'KFC'
      expect(current_path).to eq "/restaurants/#{kfc.id}"
     end
-
   end
 
   context 'editing restaurants' do
@@ -68,20 +85,16 @@ feature 'restaurants' do
      expect(page).to have_content 'Kentucky Fried Chicken'
      expect(current_path).to eq '/restaurants'
     end
-
   end
 
   context 'deleting restaurants' do
 
     before {Restaurant.create name: 'KFC'}
-
     scenario 'removes a restaurant when a user clicks a delete link' do
       visit '/restaurants'
       click_link 'Delete KFC'
       expect(page).not_to have_content 'KFC'
       expect(page).to have_content 'Restaurant deleted successfully'
     end
-
   end
-
 end
