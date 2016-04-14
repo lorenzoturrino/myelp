@@ -2,6 +2,8 @@
 = @restaurant.description
 
 %h2 Users reviews:
--@restaurant.reviews.each do |review|
+- @restaurant.reviews.each do |review|
   = "Review: #{review.thoughts}"
   = "Rating: #{review.rating}"
+  - if user_signed_in? && current_user.id == review.user_id
+    =link_to "Delete Review", restaurant_review_path(@restaurant, review), method: :delete
