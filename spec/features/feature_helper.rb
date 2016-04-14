@@ -17,3 +17,11 @@ def helper_signin(email: DEFAULT_MAIL, password: DEFAULT_PASSWORD)
   fill_in('Password', with: password)
   click_button('Log in')
 end
+
+def helper_leave_review(restaurant, thoughts, rating)
+  visit '/restaurants'
+  click_link "Review #{restaurant.name}"
+  fill_in 'Thoughts', with: thoughts
+  select rating, from: 'Rating'
+  click_button 'Leave Review'
+end
