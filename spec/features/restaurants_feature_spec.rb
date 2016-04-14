@@ -20,6 +20,11 @@ feature 'restaurants' do
   end
 
   context 'creating restaurants' do
+
+    before :each do
+      helper_signup
+    end
+
     scenario 'prompts user to fill out a form, then displays the new restaurant' do
       visit '/restaurants'
       click_link 'Add a restaurant'
@@ -51,10 +56,15 @@ feature 'restaurants' do
       expect(page).to have_content 'KFC'
       expect(current_path).to eq "/restaurants/#{kfc.id}"
     end
+
   end
 
   context 'editing restaurants' do
     let!(:kfc) { Restaurant.create(name:'KFC') }
+
+    before :each do
+      helper_signup
+    end
 
     scenario 'let a user edit a restaurant' do
       visit '/restaurants'
@@ -64,10 +74,15 @@ feature 'restaurants' do
       expect(page).to have_content 'Kentucky Fried Chicken'
       expect(current_path).to eq '/restaurants'
     end
+    
   end
 
   context 'deleting restaurants' do
     let!(:kfc) { Restaurant.create(name:'KFC') }
+
+    before :each do
+      helper_signup
+    end
 
     scenario 'removes a restaurant when a user clicks a delete link' do
       visit '/restaurants'
