@@ -2,6 +2,10 @@ class ReviewsController < ApplicationController
 
   def new
     @restaurant = Restaurant.find(params[:restaurant_id])
+    if current_user.has_reviewed? @restaurant
+      flash[:notice] = 'You already have reviewed this restaurant'
+      redirect_to '/restaurants'
+    end
     @review = Review.new
   end
 
@@ -12,6 +16,8 @@ class ReviewsController < ApplicationController
   end
 
   def review_params
-    params.require(:review).permit(:thoughts, :rating)
+    parameters = params.require(:review).permit(:thoughts, :rating)
+    parameters[:user_id] = current_user.id
+    parameters
   end
 end
