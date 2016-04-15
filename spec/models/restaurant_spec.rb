@@ -36,9 +36,12 @@ describe Restaurant, type: :model do
 
     context 'multiple reviews' do
       it 'returns the average' do
+        lolrenzo = User.create(email: 'lo@renzo.com', password: 'lolsrenzo')
+        otherguy = User.create(email: 'other@user.com', password: 'otheruser')
         restaurant = Restaurant.create(name: 'The Ivy')
-        restaurant.reviews.create(rating: 1)
-        restaurant.reviews.create(rating: 5)
+        restaurant.reviews.create(rating: 1, user_id: lolrenzo.id)
+        restaurant.reviews.create(rating: 5,user_id: otherguy.id)
+
         expect(restaurant.average_rating).to eq "★★★☆☆"
       end
     end

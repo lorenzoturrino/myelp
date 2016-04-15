@@ -14,4 +14,5 @@ class Restaurant < ActiveRecord::Base
       when 5 then "★★★★★"
     end
   end
+
 end
