@@ -1,9 +1,11 @@
-= @restaurant.name
-= @restaurant.description
-%h3 Average rating: #{@restaurant.average_rating}
-%h2 Users reviews:
-- @restaurant.reviews.each do |review|
-  = "Review: #{review.thoughts}"
-  = "Rating: #{review.rating}"
-  - if user_signed_in? && current_user.id == review.user_id
-    =link_to "Delete Review", restaurant_review_path(@restaurant, review), method: :delete
+%ul.rest_list
+  %li.rest_entry
+    = @restaurant.name
+    = @restaurant.description
+    %h3 Average rating: #{@restaurant.average_rating}
+    %h2 Users reviews:
+    - @restaurant.reviews.each do |review|
+      = "Review: #{review.thoughts}"
+      = "Rating: #{review.rating}"
+      - if user_signed_in? && current_user.id == review.user_id
+        =link_to "Delete Review", restaurant_review_path(@restaurant, review), method: :delete
