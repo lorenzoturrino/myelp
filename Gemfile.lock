@@ -39,10 +39,7 @@ GEM
     addressable (2.4.0)
     arel (6.0.3)
     bcrypt (3.1.11)
-    binding_of_caller (0.7.2)
-      debug_inspector (>= 0.0.1)
     builder (3.2.2)
-    byebug (8.2.4)
     capybara (2.7.0)
       addressable
       mime-types (>= 1.16)
@@ -50,6 +47,10 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
+    climate_control (0.0.3)
+      activesupport (>= 3.0)
+    cocaine (0.5.8)
+      climate_control (>= 0.0.3, < 1.0)
     coffee-rails (4.1.1)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0, < 5.1.x)
@@ -58,7 +59,6 @@ GEM
       execjs
     coffee-script-source (1.10.0)
     concurrent-ruby (1.0.1)
-    debug_inspector (0.0.2)
     devise (3.5.6)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -93,6 +93,7 @@ GEM
     mime-types (3.0)
       mime-types-data (~> 3.2015)
     mime-types-data (3.2016.0221)
+    mimemagic (0.3.0)
     mini_portile2 (2.0.0)
     minitest (5.8.4)
     multi_json (1.11.2)
@@ -115,6 +116,12 @@ GEM
       oauth2 (~> 1.0)
       omniauth (~> 1.2)
     orm_adapter (0.5.0)
+    paperclip (4.3.6)
+      activemodel (>= 3.2.0)
+      activesupport (>= 3.2.0)
+      cocaine (~> 0.5.5)
+      mime-types
+      mimemagic (= 0.3.0)
     pg (0.18.4)
     rack (1.6.4)
     rack-test (0.6.3)
@@ -202,11 +209,6 @@ GEM
       execjs (>= 0.3.0, < 3)
     warden (1.2.6)
       rack (>= 1.0)
-    web-console (2.3.0)
-      activemodel (>= 4.0)
-      binding_of_caller (>= 0.7.2)
-      railties (>= 4.0)
-      sprockets-rails (>= 2.0, < 4.0)
     xpath (2.0.0)
       nokogiri (~> 1.3)
 
@@ -214,7 +216,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  byebug
   capybara
   coffee-rails (~> 4.1.0)
   devise
@@ -222,6 +223,7 @@ DEPENDENCIES
   jbuilder (~> 2.0)
   jquery-rails
   omniauth-facebook
+  paperclip
   pg (~> 0.15)
   rails (= 4.2.6)
   rspec-collection_matchers
@@ -232,7 +234,6 @@ DEPENDENCIES
   spring
   turbolinks
   uglifier (>= 1.3.0)
-  web-console (~> 2.0)
 
 BUNDLED WITH
    1.11.2
