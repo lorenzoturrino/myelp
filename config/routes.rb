@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   root to: "restaurants#index"
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
-  resources :restaurants do
+  resources :restaurants, shallow: true do
     resources :reviews
   end
 

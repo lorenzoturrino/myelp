@@ -52,7 +52,7 @@ feature 'reviewing' do
       visit "/restaurants"
       click_link "KFC"
       click_link "Delete Review"
-      expect(current_path).to eq restaurant_path kfc.id
+      expect(current_path).to eq restaurants_path
       expect(page).not_to have_content "so so"
     end
 
@@ -70,8 +70,8 @@ feature 'reviewing' do
       end
 
       scenario "prevents from deleting other users' reviews via a delete request" do
-        page.driver.submit :delete, restaurant_review_path(kfc.id, review.id), {}
-        expect(current_path).to eq restaurant_path kfc.id
+        page.driver.submit :delete, review_path(review.id), {}
+        expect(current_path).to eq restaurants_path
         expect(page).to have_content "meh"
         expect(page).to have_content "Feck off this is NOT your review your fat ass!"
       end

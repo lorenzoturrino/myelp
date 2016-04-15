@@ -16,13 +16,15 @@ class ReviewsController < ApplicationController
   end
 
   def destroy
+    puts "params: #{params}\n revs:"
+    Review.all.each {|rev| puts rev.id}
     review = Review.find(params[:id])
     if current_user.id == review.user_id
       review.destroy
     else
       flash[:notice] = "Feck off this is NOT your review your fat ass!"
     end
-    redirect_to restaurant_path params[:restaurant_id]
+    redirect_to restaurants_path
   end
 
   def review_params

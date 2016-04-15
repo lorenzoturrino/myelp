@@ -8,4 +8,4 @@
       = "Review: #{review.thoughts}"
       = "Rating: #{review.rating}"
       - if user_signed_in? && current_user.id == review.user_id
-        =link_to "Delete Review", restaurant_review_path(@restaurant, review), method: :delete
+        =link_to "Delete Review", review_path(review), method: :delete
